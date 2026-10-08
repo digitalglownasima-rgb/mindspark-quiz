@@ -4,91 +4,156 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>MindSpark</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;700&family=Fraunces:opsz,wght@9..144,700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#f3f0fa; --ink:#1d1740; --muted:#5d5880; --card:#ffffff; --accent:#5b3df5; --accent-ink:#ffffff; --spark:#ffb62e; --line:#d9d3f0;
-  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
-}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14102b;--ink:#f0edff;--muted:#a9a3cf;--card:#1f1a42;--accent:#8c78ff;--accent-ink:#14102b;--line:#342d66}}
-:root[data-theme="dark"]{--bg:#14102b;--ink:#f0edff;--muted:#a9a3cf;--card:#1f1a42;--accent:#8c78ff;--accent-ink:#14102b;--line:#342d66}
+:root{--bg:#f3f0fa;--ink:#1d1740;--muted:#5d5880;--card:#fff;--accent:#5b3df5;--ai:#fff;--spark:#ffb62e;--line:#d9d3f0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14102b;--ink:#f0edff;--muted:#a9a3cf;--card:#1f1a42;--accent:#8c78ff;--ai:#14102b;--line:#342d66}}
 *{box-sizing:border-box}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:'Hind Siliguri','Segoe UI',sans-serif;line-height:1.6;min-height:100vh}
 .wrap{max-width:560px;margin:0 auto;padding:20px 20px 48px}
 header{display:flex;justify-content:space-between;align-items:center;gap:12px}
-.logo{font-family:'Fraunces',Georgia,serif;font-size:1.5rem;font-weight:700;letter-spacing:-.01em}
+.logo{font-family:'Fraunces',Georgia,serif;font-size:1.5rem;font-weight:700}
 .logo span{color:var(--spark)}
 .lang{display:inline-flex;border:1.5px solid var(--line);border-radius:999px;padding:3px;background:var(--card)}
 .lang button{border:0;background:transparent;color:var(--muted);font:inherit;font-size:.9rem;padding:4px 14px;border-radius:999px;cursor:pointer}
-.lang button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);font-weight:500}
+.lang button[aria-pressed="true"]{background:var(--accent);color:var(--ai);font-weight:500}
 button:focus-visible{outline:3px solid var(--spark);outline-offset:2px}
-.tag{margin:44px 0 0;color:var(--muted);font-size:1.05rem}
+.screen{display:none;margin-top:36px}.screen.on{display:block}
+.muted{color:var(--muted)}
 h1{font-size:clamp(2rem,8vw,2.8rem);line-height:1.2;margin:8px 0 14px}
-.lead{font-size:1.1rem;color:var(--muted);margin:0 0 28px}
-.cta{display:inline-block;background:var(--accent);color:var(--accent-ink);border:0;font:inherit;font-weight:700;font-size:1.1rem;padding:14px 28px;border-radius:14px;cursor:pointer;transition:transform .15s}
-.cta:active{transform:scale(.97)}
-.privacy{margin:14px 0 0;font-size:.95rem;color:var(--muted)}
-.share{margin-top:48px;background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:22px}
-.share h2{margin:0 0 4px;font-size:1.2rem}
-.share p{margin:0 0 16px;color:var(--muted)}
-.actions{display:flex;flex-wrap:wrap;gap:10px}
-.actions button{font:inherit;font-size:.95rem;padding:9px 18px;border-radius:10px;border:1.5px solid var(--accent);background:transparent;color:var(--ink);cursor:pointer}
-.actions button:hover{background:var(--accent);color:var(--accent-ink)}
-#note{margin-top:14px;min-height:1.4em;font-size:.95rem;color:var(--muted)}
+h2{font-size:1.4rem;line-height:1.35;margin:10px 0 18px}
+.cta{background:var(--accent);color:var(--ai);border:0;font:inherit;font-weight:700;font-size:1.1rem;padding:14px 28px;border-radius:14px;cursor:pointer}
+.opt{display:block;width:100%;text-align:left;margin:0 0 10px;padding:14px 16px;font:inherit;font-size:1.05rem;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:14px;cursor:pointer}
+.opt:hover{border-color:var(--accent)}
+.bar{height:6px;background:var(--line);border-radius:6px;overflow:hidden;margin-bottom:6px}
+.bar i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+.res{background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:24px}
+.res .em{font-size:3rem;line-height:1}
+.res h2{font-size:1.8rem;margin:8px 0 8px}
+.acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.acts button{font:inherit;font-size:.95rem;padding:9px 18px;border-radius:10px;border:1.5px solid var(--accent);background:transparent;color:var(--ink);cursor:pointer}
+.acts button:hover{background:var(--accent);color:var(--ai)}
+#note{margin-top:12px;min-height:1.4em;color:var(--muted);font-size:.95rem}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header>
-    <div class="logo">Mind<span>Spark</span></div>
-    <div class="lang" role="group" aria-label="Language">
-      <button type="button" data-lang="bn" aria-pressed="true">বাংলা</button>
-      <button type="button" data-lang="en" aria-pressed="false">English</button>
-    </div>
-  </header>
+<header>
+  <div class="logo">Mind<span>Spark</span></div>
+  <div class="lang" role="group" aria-label="Language">
+    <button type="button" data-l="bn" aria-pressed="true">বাংলা</button>
+    <button type="button" data-l="en" aria-pressed="false">English</button>
+  </div>
+</header>
 
-  <main>
-    <p class="tag" data-bn="তোমার personality আবিষ্কার করো" data-en="Discover your personality">তোমার personality আবিষ্কার করো</p>
-    <h1 data-bn="তোমার Personality আসলে কেমন?" data-en="What is your personality really like?">তোমার Personality আসলে কেমন?</h1>
-    <p class="lead" data-bn="৮টি সহজ প্রশ্নের উত্তর দাও এবং তোমার MindSpark personality type জেনে নাও।" data-en="Answer 8 easy questions and find your MindSpark personality type.">৮টি সহজ প্রশ্নের উত্তর দাও এবং তোমার MindSpark personality type জেনে নাও।</p>
-    <button class="cta" type="button" id="start" data-bn="Quiz শুরু করো 🚀" data-en="Start the quiz 🚀">Quiz শুরু করো 🚀</button>
-    <p class="privacy" data-bn="কোনো sign-up বা sensitive information প্রয়োজন নেই।" data-en="No sign-up or sensitive information needed.">কোনো sign-up বা sensitive information প্রয়োজন নেই।</p>
+<main>
+<section class="screen on" id="home">
+  <p class="muted" data-t="tag"></p>
+  <h1 data-t="title"></h1>
+  <p class="muted" data-t="lead" style="font-size:1.1rem;margin:0 0 28px"></p>
+  <button class="cta" type="button" id="start" data-t="start"></button>
+  <p class="muted" data-t="priv" style="margin-top:14px;font-size:.95rem"></p>
+</section>
 
-    <section class="share">
-      <h2 data-bn="তোমার Result Share করো" data-en="Share your result">তোমার Result Share করো</h2>
-      <p data-bn="বন্ধুদের জানাও MindSpark তোমার সম্পর্কে কী বলেছে!" data-en="Tell your friends what MindSpark said about you!">বন্ধুদের জানাও MindSpark তোমার সম্পর্কে কী বলেছে!</p>
-      <div class="actions">
-        <button type="button" id="share" data-bn="Share Result" data-en="Share Result">Share Result</button>
-        <button type="button" id="retake" data-bn="আবার Quiz দাও" data-en="Retake quiz">আবার Quiz দাও</button>
-        <button type="button" id="home" data-bn="হোম" data-en="Home">হোম</button>
-      </div>
-      <div id="note" role="status"></div>
-    </section>
-  </main>
+<section class="screen" id="quiz">
+  <div class="bar"><i id="prog"></i></div>
+  <p class="muted" id="count" style="margin:0"></p>
+  <h2 id="qtext"></h2>
+  <div id="opts"></div>
+</section>
+
+<section class="screen" id="result">
+  <div class="res">
+    <div class="em" id="rem"></div>
+    <p class="muted" data-t="yours" style="margin:8px 0 0"></p>
+    <h2 id="rname"></h2>
+    <p id="rdesc" style="margin:0"></p>
+    <p class="muted" id="rtip" style="margin:12px 0 0"></p>
+  </div>
+  <h2 data-t="shareh" style="margin-top:28px;font-size:1.2rem"></h2>
+  <p class="muted" data-t="sharep" style="margin:0"></p>
+  <div class="acts">
+    <button type="button" id="share" data-t="share"></button>
+    <button type="button" id="retake" data-t="retake"></button>
+    <button type="button" id="home-btn" data-t="homebtn"></button>
+  </div>
+  <div id="note" role="status"></div>
+</section>
+</main>
 </div>
 
 <script>
 (function(){
-  var lang='bn';
-  var msgs={
-    bn:{soon:'Quiz শীঘ্রই আসছে।',none:'আগে Quiz দাও, তারপর Result Share করতে পারবে।'},
-    en:{soon:'The quiz is coming soon.',none:'Take the quiz first, then you can share your result.'}
-  };
-  var note=document.getElementById('note');
-  function setLang(l){
-    lang=l;
-    document.documentElement.lang=l;
-    document.querySelectorAll('[data-bn]').forEach(function(el){el.textContent=el.getAttribute('data-'+l)});
-    document.querySelectorAll('.lang button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.lang===l))});
-    note.textContent='';
-  }
-  document.querySelectorAll('.lang button').forEach(function(b){b.addEventListener('click',function(){setLang(b.dataset.lang)})});
-  document.getElementById('start').addEventListener('click',function(){note.textContent=msgs[lang].soon});
-  document.getElementById('retake').addEventListener('click',function(){note.textContent=msgs[lang].soon});
-  document.getElementById('share').addEventListener('click',function(){note.textContent=msgs[lang].none});
-  document.getElementById('home').addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});note.textContent=''});
+var L='bn',qi=0,score,res=null;
+var T={
+bn:{tag:'তোমার personality আবিষ্কার করো',title:'তোমার Personality আসলে কেমন?',lead:'৮টি সহজ প্রশ্নের উত্তর দাও এবং তোমার MindSpark personality type জেনে নাও।',start:'Quiz শুরু করো 🚀',priv:'কোনো sign-up বা sensitive information প্রয়োজন নেই।',yours:'তোমার personality type',shareh:'তোমার Result Share করো',sharep:'বন্ধুদের জানাও MindSpark তোমার সম্পর্কে কী বলেছে!',share:'Share Result',retake:'আবার Quiz দাও',homebtn:'হোম',of:' / ৮',copied:'Result কপি হয়েছে, এখন যেখানে খুশি পেস্ট করো।',st:'আমার MindSpark personality type: '},
+en:{tag:'Discover your personality',title:'What is your personality really like?',lead:'Answer 8 easy questions and find your MindSpark personality type.',start:'Start the quiz 🚀',priv:'No sign-up or sensitive information needed.',yours:'Your personality type',shareh:'Share your result',sharep:'Tell your friends what MindSpark said about you!',share:'Share Result',retake:'Retake quiz',homebtn:'Home',of:' / 8',copied:'Result copied. Paste it anywhere you like.',st:'My MindSpark personality type: '}
+};
+// types: E=Calm Explorer, C=Creative Spark, S=Social Connector, G=Goal Driver
+var R={
+E:{em:'🧭',n:{bn:'Calm Explorer — শান্ত অভিযাত্রী',en:'Calm Explorer'},d:{bn:'তুমি শান্ত থেকে নতুন জিনিস খুঁজে বেড়াও। তাড়াহুড়ো না করে ভেবেচিন্তে এগোও, আর কৌতূহল তোমার সবচেয়ে বড় শক্তি।',en:'You explore new things while staying calm. You move forward thoughtfully, and curiosity is your biggest strength.'},t:{bn:'টিপ: নতুন কিছু শেখার জন্য প্রতি সপ্তাহে একটু সময় আলাদা রাখো।',en:'Tip: set aside a little time each week to learn something new.'}},
+C:{em:'🎨',n:{bn:'Creative Spark — সৃজনশীল স্ফুলিঙ্গ',en:'Creative Spark'},d:{bn:'তোমার মাথায় সবসময় নতুন idea ঘোরে। পরিস্থিতি বদলালে তুমি সেটাকে সুযোগ বানিয়ে ফেলো, আর নিজের মতো করে কিছু তৈরি করতে ভালোবাসো।',en:'Your mind is always full of new ideas. When things change you turn them into opportunities, and you love making things your own way.'},t:{bn:'টিপ: idea মাথায় না রেখে লিখে রাখো, পরে কাজে লাগবে।',en:'Tip: write your ideas down instead of keeping them in your head.'}},
+S:{em:'🤝',n:{bn:'Social Connector — সামাজিক সংযোগকারী',en:'Social Connector'},d:{bn:'মানুষের সাথে সময় কাটানো আর কথা বলা তোমাকে শক্তি দেয়। তুমি সহজে মানিয়ে নিতে পারো এবং অন্যকে সাহায্য করতে ভালোবাসো।',en:'Spending time and talking with people gives you energy. You adapt easily and love helping others.'},t:{bn:'টিপ: তোমার সম্পর্কগুলোই তোমার সবচেয়ে বড় সম্পদ, সেগুলোর যত্ন নিও।',en:'Tip: your relationships are your greatest asset, so take care of them.'}},
+G:{em:'🎯',n:{bn:'Goal Driver — লক্ষ্যভেদী',en:'Goal Driver'},d:{bn:'তোমার সামনে সবসময় একটা পরিষ্কার লক্ষ্য থাকে। তুমি পরিকল্পনা করো, সবাইকে গুছিয়ে নাও আর সাফল্যের জন্য কাজ করে যাও।',en:'You always keep a clear goal in front of you. You plan, organise people and keep working toward success.'},t:{bn:'টিপ: বড় লক্ষ্যকে ছোট ধাপে ভাগ করলে এগোনো সহজ হয়।',en:'Tip: break big goals into small steps to make progress easier.'}}
+};
+// each option: [bn, en, type]
+var Q=[
+{q:['অবসর সময়ে তুমি কী করতে পছন্দ করো?','What do you like to do in your free time?'],a:[['নতুন কিছু শেখা','Learn something new','E'],['আরাম করা','Relax','C'],['বন্ধুদের সাথে কথা বলা','Talk with friends','S'],['নিজের লক্ষ্য নিয়ে কাজ করা','Work on my goals','G']]},
+{q:['একটি Group-এ তুমি সাধারণত কী করো?','What do you usually do in a group?'],a:[['কথা শুরু করি','Start the conversation','S'],['মন দিয়ে শুনি','Listen carefully','E'],['সবাইকে organize করি','Organize everyone','G'],['নতুন idea দিই','Offer new ideas','C']]},
+{q:['গুরুত্বপূর্ণ সিদ্ধান্ত কীভাবে নাও?','How do you make important decisions?'],a:[['যুক্তি অনুসরণ করি','Follow logic','G'],['অনুভূতিকে বিশ্বাস করি','Trust my feelings','C'],['পরামর্শ নিই','Ask for advice','S'],['সব option তুলনা করি','Compare all options','E']]},
+{q:['কোনটি তোমার কাছে সবচেয়ে exciting?','What excites you the most?'],a:[['নতুন adventure','A new adventure','E'],['শান্ত creative project','A quiet creative project','C'],['বড় achievement','A big achievement','G'],['অর্থপূর্ণ conversation','A meaningful conversation','S']]},
+{q:['Plan হঠাৎ বদলে গেলে তুমি কী করো?','What do you do when a plan suddenly changes?'],a:[['দ্রুত মানিয়ে নিই','Adapt quickly','S'],['কিছুটা সময় নিই','Take a little time','E'],['নতুন plan করি','Make a new plan','G'],['এটাকে সুযোগ হিসেবে দেখি','See it as an opportunity','C']]},
+{q:['কী তোমাকে সবচেয়ে বেশি motivate করে?','What motivates you the most?'],a:[['স্বাধীনতা','Freedom','E'],['অন্যকে সাহায্য করা','Helping others','S'],['সাফল্য','Success','G'],['কৌতূহল','Curiosity','C']]},
+{q:['তোমার Ideal Weekend কেমন?','What does your ideal weekend look like?'],a:[['নতুন কিছু চেষ্টা করা','Trying something new','C'],['শান্তি ও বিশ্রাম','Peace and rest','E'],['কাজের কিছু তৈরি করা','Building something useful','G'],['বন্ধু ও আনন্দ','Friends and fun','S']]},
+{q:['কোন শব্দটি তোমাকে সবচেয়ে ভালো describe করে?','Which word describes you best?'],a:[['Curious — কৌতূহলী','Curious','E'],['Calm — শান্ত','Calm','S'],['Driven — লক্ষ্যভেদী','Driven','G'],['Creative — সৃজনশীল','Creative','C']]}
+];
+var $=function(id){return document.getElementById(id)};
+function show(id){document.querySelectorAll('.screen').forEach(function(s){s.classList.toggle('on',s.id===id)})}
+function ui(){
+  document.documentElement.lang=L;
+  document.querySelectorAll('[data-t]').forEach(function(e){e.textContent=T[L][e.dataset.t]});
+  document.querySelectorAll('.lang button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.l===L))});
+  if($('quiz').classList.contains('on'))ask();
+  if(res)fill();
+  $('note').textContent='';
+}
+function ask(){
+  var q=Q[qi],i=L==='bn'?0:1;
+  $('prog').style.width=(qi/Q.length*100)+'%';
+  $('count').textContent=(qi+1)+T[L].of;
+  $('qtext').textContent=q.q[i];
+  $('opts').innerHTML='';
+  q.a.forEach(function(o){
+    var b=document.createElement('button');
+    b.type='button';b.className='opt';b.textContent=o[i];
+    b.onclick=function(){pick(o[2])};
+    $('opts').appendChild(b);
+  });
+}
+function pick(t){
+  score[t]++;qi++;
+  if(qi<Q.length){ask();return}
+  var best='E',m=-1;
+  ['E','C','S','G'].forEach(function(k){if(score[k]>m){m=score[k];best=k}});
+  res=best;fill();show('result');
+}
+function fill(){
+  var r=R[res];
+  $('rem').textContent=r.em;$('rname').textContent=r.n[L];
+  $('rdesc').textContent=r.d[L];$('rtip').textContent=r.t[L];
+}
+function begin(){score={E:0,C:0,S:0,G:0};qi=0;res=null;show('quiz');ask()}
+document.querySelectorAll('.lang button').forEach(function(b){b.onclick=function(){L=b.dataset.l;ui()}});
+$('start').onclick=begin;
+$('retake').onclick=begin;
+$('home-btn').onclick=function(){res=null;show('home');window.scrollTo(0,0)};
+$('share').onclick=function(){
+  var txt=T[L].st+R[res].n[L]+' '+location.href;
+  if(navigator.share){navigator.share({title:'MindSpark',text:T[L].st+R[res].n[L],url:location.href}).catch(function(){})}
+  else if(navigator.clipboard){navigator.clipboard.writeText(txt).then(function(){$('note').textContent=T[L].copied})}
+  else{$('note').textContent=txt}
+};
+ui();
 })();
 </script>
 </body>
